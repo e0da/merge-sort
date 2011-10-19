@@ -1,5 +1,5 @@
 merge-sort.js
-=============
+===============================================================================
 
 Add a stable merge sort method to the JavaScript Array prototype (and jQuery's
 `$` and `$.fn`, if available). This is useful because (at the time of this
@@ -12,9 +12,8 @@ function.
 
 
 
-
-API
----------------------
+Syntax
+--------------------------------------------------------------------------------
 
     [].mergeSort([compareFunction])
     $.mergeSort(list [, compareFunction])
@@ -43,7 +42,7 @@ object which has all of the following properties (like an [Array][]):
 
 
 Installation
----------------------
+--------------------------------------------------------------------------------
 
 Just include this script before any scripts which would rely on it. If you're
 using jQuery, include this script after jQuery and before your application
@@ -56,7 +55,7 @@ script.
 
 
 Examples
----------------------
+--------------------------------------------------------------------------------
 
 ### Arrays
 
@@ -126,21 +125,12 @@ Pretty specific, but I can describe it with a function.
     });
     // [4, "23", 89, "stapler"]
 
-Because it is implemented as an Array method, you can also apply mergeSort
-to any object that can be iterated as an array. For instance, to call mergeSort
-on a set of jQuery nodes, you could
-
-    Array.prototype.mergeSort.call($('.things'));
-
-(Of course, you don't want to do it this way. You should just use the
-`$(selection).mergeSort()` syntax).
-
 
 
 ### jQuery
 
 Used with jQuery, you'll probably always want to supply a compare function, so
-I'll only discuss those cases. Here's a non trivial example. I have a table:
+I'll only discuss those cases. Here's a non-trivial example. I have a table:
 
     <table id=demo>
       <thead>
@@ -151,34 +141,83 @@ I'll only discuss those cases. Here's a non trivial example. I have a table:
       <tbody>
         <tr>
           <td>Bob
-          <td>Smith
+          <td>Durp 
           <td>Programmer
         <tr>
           <td>Alice
-          <td>Jones
+          <td>Morp 
           <td>Programmer
         <tr>
           <td>Luis
-          <td>Smith
+          <td>Durp 
           <td>Analyst
     </table>
 
-I can sort by any column
-'
+Which looks something like
+
+    +++++++++++++++++++++++++++++++++++++++
+    + First Name + Last Name + Occupation +
+    +++++++++++++++++++++++++++++++++++++++
+    | Bob        | Durp      | Programmer |
+    ---------------------------------------
+    | Alice      | Morp      | Programmer |
+    ---------------------------------------
+    | Luis       | Durp      | Analyst    |
+    ---------------------------------------
+
+
+I can sort by any column. To sort by Last Name (the 2nd column):
     
-    $('#demo tbody').html($('#demo tbody tr').mergeSort(function() {
-      // sort rows by specified column
-    }).html());
-          
-The `$.mergeSort(list, compareFunction)` syntax is just [sugar][] for `Array.prototype.mergeSort.call(list, compareFunction)`. 
+     $('#demo tbody').html($('#demo tbody tr').mergeSort(function (left, right) {
+
+      left = $(left).find('td:nth-child(2)').text().toLowerCase();
+      right = $(right).find('td:nth-child(2)').text().toLowerCase();
+
+      if (left < right) {
+        return -1;
+      } else if (left === right) {
+        return 0;
+      } else {
+        return 1;
+      }
+    }));
+
+And the table will be updated to look like this:
+
+    +++++++++++++++++++++++++++++++++++++++
+    + First Name + Last Name + Occupation +
+    +++++++++++++++++++++++++++++++++++++++
+    | Bob        | Durp      | Programmer |
+    ---------------------------------------
+    | Luis       | Durp      | Analyst    |
+    ---------------------------------------
+    | Alice      | Morp      | Programmer |
+    ---------------------------------------
+
+You can see how with a little imagination and the application of a click
+handler, this could be extrapolated to allow real-time resorting of a table.
+And since it's a stable sort, you can sort by multiple columns sequentially.
+
 
 
 ### Other
 
+You can apply this merge sort to any other compatible type in the same way (see
+_list_ in the Syntax section above for compatibility).
+
+    $.mergeSort(aListOfSomeKind, compareMyListItems);
+
+The `$.mergeSort()` syntax is just [sugar][] for
+`Array.prototype.mergeSort.call()`, so the above is equivalent to 
+
+    Array.prototype.mergeSort.call(aListOfSomeKind, compareMyListItems);
+
+But just use the simpler `$.mergeSort()` syntax. **:)**
+
 
 
 Copyright and License
----------------------
+--------------------------------------------------------------------------------
 
 Copyright © 2011, Justin Force
 
@@ -191,3 +230,4 @@ Licensed under the [BSD 3-Clause License](http://www.opensource.org/licenses/BSD
 [Array]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array "Array on Mozilla Developer Network"
 [Array.slice]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/slice "Array.slice on Mozilla Developer Network"
 [sugar]:http://en.wikipedia.org/wiki/Syntactic_sugar "Syntactic sugar on Wikipedia"
+

@@ -14,12 +14,13 @@
   'use strict';
 
   // Add stable merge sort method to Array prototype
-  if (Array.mergeSort === undefined) {
+  if (!Array.mergeSort) {
     Array.prototype.mergeSort = function (compare) {
 
       var length = this.length,
         middle = Math.floor(length / 2);
 
+      // define default comparison function if none is defined
       if (!compare) {
         compare = function (left, right) {
           if (left  <  right) {
@@ -70,7 +71,9 @@
 
   // Add merge sort to jQuery if it's present
   if (window.jQuery !== undefined) {
-    jQuery.fn.mergeSort = Array.prototype.mergeSort;
+    jQuery.fn.mergeSort = function (compare) {
+      return $(Array.prototype.mergeSort.call(this, compare));
+    }
     jQuery.mergeSort = function (array, compare) {
       return Array.prototype.mergeSort.call(array, compare);
     };
