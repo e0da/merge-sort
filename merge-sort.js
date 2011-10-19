@@ -72,8 +72,8 @@
   // Add merge sort to jQuery if it's present
   if (window.jQuery !== undefined) {
     jQuery.fn.mergeSort = function (compare) {
-      return $(Array.prototype.mergeSort.call(this, compare));
-    }
+      return jQuery(Array.prototype.mergeSort.call(this, compare));
+    };
     jQuery.mergeSort = function (array, compare) {
       return Array.prototype.mergeSort.call(array, compare);
     };
