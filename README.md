@@ -2,24 +2,14 @@ merge-sort.js
 =============
 
 Add a stable merge sort method to the JavaScript Array prototype (and jQuery's
-`$` and `$.fn`, if available). This is useful because at the time of this
-writing some popular browsers do not implement a [stable sort][] algorithm in
+`$` and `$.fn`, if available). This is useful because (at the time of this
+writing) some popular browsers do not implement a [stable sort][] algorithm in
 their JavaScript implementations. A popular application for stable sorting is
 sorting tables by multiple columns.
 
 As with JavaScript's own [Array.sort][], you can specify your own comparison
 function.
 
-Because it is implemented as an Array method, you can also apply it to any
-object that can be iterated as an array. For instance, to call mergeSort on a
-set of jQuery nodes, you could
-
-    Array.prototype.mergeSort.call($('.things'));
-
-(Of course, you don't want to do it this way. You should just use the
-`$(selection).mergeSort()` syntax).
-
-I've included several examples below to get you started.
 
 
 
@@ -35,12 +25,12 @@ API
 `compareFunction` _(optional)_ is a function that accepts two arguments and returns
 
  * **-1** if the first argument is **less than** the second
- * **0** if the two arguments are equal
+ * **0** if the two arguments are **equal**
  * **1** if the first argument is **greater than** the second
 
 ### list
 
-`list` _(required and applicable to $.mergeSort() syntax only)_ is a list-like
+`list` _(required for $.mergeSort() syntax only)_ is a list-like
 object which has all of the following properties (like an [Array][]):
 
 1. Has a `length` attribute which contains the number of elements in the list
@@ -136,9 +126,52 @@ Pretty specific, but I can describe it with a function.
     });
     // [4, "23", 89, "stapler"]
 
+Because it is implemented as an Array method, you can also apply mergeSort
+to any object that can be iterated as an array. For instance, to call mergeSort
+on a set of jQuery nodes, you could
+
+    Array.prototype.mergeSort.call($('.things'));
+
+(Of course, you don't want to do it this way. You should just use the
+`$(selection).mergeSort()` syntax).
+
 
 
 ### jQuery
+
+Used with jQuery, you'll probably always want to supply a compare function, so
+I'll only discuss those cases. Here's a non trivial example. I have a table:
+
+    <table id=demo>
+      <thead>
+        <tr>
+          <th>First Name
+          <th>Last Name
+          <th>Occupation
+      <tbody>
+        <tr>
+          <td>Bob
+          <td>Smith
+          <td>Programmer
+        <tr>
+          <td>Alice
+          <td>Jones
+          <td>Programmer
+        <tr>
+          <td>Luis
+          <td>Smith
+          <td>Analyst
+    </table>
+
+I can sort by any column
+'
+    
+    $('#demo tbody').html($('#demo tbody tr').mergeSort(function() {
+      // sort rows by specified column
+    }).html());
+          
+The `$.mergeSort(list, compareFunction)` syntax is just [sugar][] for `Array.prototype.mergeSort.call(list, compareFunction)`. 
+
 
 ### Other
 
@@ -157,4 +190,4 @@ Licensed under the [BSD 3-Clause License](http://www.opensource.org/licenses/BSD
 [Array.sort]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort "Array.sort on Mozilla Developer Network"
 [Array]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array "Array on Mozilla Developer Network"
 [Array.slice]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/slice "Array.slice on Mozilla Developer Network"
-
+[sugar]:http://en.wikipedia.org/wiki/Syntactic_sugar "Syntactic sugar on Wikipedia"
