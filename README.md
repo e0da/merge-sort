@@ -1,7 +1,7 @@
 merge-sort.js
 ===============================================================================
 
-Add a stable merge sort method to the JavaScript Array prototype (and jQuery's
+Add a stable [merge sort][] method to the JavaScript Array prototype (and jQuery's
 `$` and `$.fn`, if available). This is useful because (at the time of this
 writing) some popular browsers do not implement a [stable sort][] algorithm in
 their JavaScript implementations. A popular application for stable sorting is
@@ -225,6 +225,7 @@ Licensed under the [BSD 3-Clause License](http://www.opensource.org/licenses/BSD
 
 
 
+[merge sort]: http://en.wikipedia.org/wiki/Merge_sort "Merge sort on Wikipedia"
 [stable sort]:http://en.wikipedia.org/wiki/Sorting_algorithm#Stability "Sorting algorithm stability on Wikipedia"
 [Array.sort]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort "Array.sort on Mozilla Developer Network"
 [Array]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array "Array on Mozilla Developer Network"
