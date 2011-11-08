@@ -1,5 +1,5 @@
 /*!
- * Merge sort in JavaScript v1.0
+ * Merge Sort in JavaScript v1.0
  * http://github.com/sidewaysmilk/merge-sort
  *
  * Copyright (c) 2011, Justin Force
