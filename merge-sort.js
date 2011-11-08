@@ -1,10 +1,10 @@
 /*!
-* Merge sort in JavaScript
-* http://github.com/sidewaysmilk/merge-sort
-*
-* Copyright (c) 2011, Justin Force
-* Licensed under the BSD 3-Clause License
-*/
+ * Merge sort in JavaScript v1.0
+ * http://github.com/sidewaysmilk/merge-sort
+ *
+ * Copyright (c) 2011, Justin Force
+ * Licensed under the BSD 3-Clause License
+ */
 
 /*jslint browser: true, indent: 2 */
 /*global jQuery */
