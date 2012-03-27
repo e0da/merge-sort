@@ -1,6 +1,6 @@
 /*!
  * Merge Sort in JavaScript v1.0
- * http://github.com/sidewaysmilk/merge-sort
+ * http://github.com/justinforce/merge-sort
  *
  * Copyright (c) 2011, Justin Force
  * Licensed under the BSD 3-Clause License
